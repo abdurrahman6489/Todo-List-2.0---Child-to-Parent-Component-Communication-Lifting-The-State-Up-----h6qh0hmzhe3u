@@ -7,7 +7,7 @@ const ListRender = ({ list }) => {
         return (
           <div className="box" key={item.number}>
             <div className="task">
-              {item.title}  ({item.date.toLocaleDateString()})
+              {item.title} ({item.date.toLocaleDateString()})
             </div>
           </div>
         );
