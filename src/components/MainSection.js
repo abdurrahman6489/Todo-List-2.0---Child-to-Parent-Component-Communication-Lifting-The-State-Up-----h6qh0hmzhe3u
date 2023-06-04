@@ -12,7 +12,6 @@ const list = [
 const MainSection = ({ active }) => {
   const [originalList, setOriginalList] = useState(list);
   function addTodo({ title, date }) {
-    console.log(title, date);
     setOriginalList((oldList) => [
       ...oldList,
       { number: oldList.length, title, date },
