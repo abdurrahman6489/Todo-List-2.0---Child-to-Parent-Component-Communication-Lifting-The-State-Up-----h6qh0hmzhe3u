@@ -1,13 +1,13 @@
 import React from "react";
 
-const ListRender = (props) => {
+const ListRender = ({ list }) => {
   return (
     <>
-      {props.list.map((list) => {
+      {list.map((item) => {
         return (
-          <div className="box" key={list.number}>
+          <div className="box" key={item.number}>
             <div className="task">
-              {list.title} ({list.date.toLocaleDateString()})
+              {item.title} ({item.date.toLocaleDateString()})
             </div>
           </div>
         );
