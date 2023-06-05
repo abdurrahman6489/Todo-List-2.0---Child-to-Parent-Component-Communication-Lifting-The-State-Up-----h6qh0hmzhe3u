@@ -22,6 +22,7 @@ const Inbox = ({ list, append }) => {
   function handleClick(event) {
     event.preventDefault();
     const { title, date } = newTodo;
+     if (!title || !date) return;
     let currentDate = new Date(date);
     append({ title, date: currentDate });
     setNewTask(false);
