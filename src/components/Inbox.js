@@ -64,7 +64,9 @@ const Inbox = ({ list, append }) => {
           return (
             <div className="box" key={index}>
               <div className="task">
-                {list.title} ({list.date.toLocaleDateString()})
+                <div id="code">
+                  {list.title} ({list.date.toLocaleDateString()})
+                </div>
               </div>
             </div>
           );
