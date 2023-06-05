@@ -26,6 +26,7 @@ const Inbox = ({ list, append }) => {
     let currentDate = new Date(date);
     append({ title, date: currentDate });
     setNewTask(false);
+    setNewTodo(object);
   }
 
   return (
