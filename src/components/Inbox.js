@@ -1,67 +1,77 @@
 import React, { useState, useRef } from "react";
 
+var curr = new Date();
+curr.setDate(curr.getDate());
+var date = curr.toISOString().substring(0, 10);
+
+const object = { title: "", date: date };
+
 const Inbox = (props) => {
   const [newTask, setNewTask] = useState(false);
-
-  const titleRef = useRef(null);
-  const calendarRef = useRef(null);
-
-  const newTaskHandler = (e) => {
+  const [newTodo, setNewTodo] = useState(object);
+  function addNewTask() {
     setNewTask(true);
-  };
-
-  const addHandler = (e) => {
-    e.preventDefault();
-    if (titleRef.current.value === "") {
-      window.alert("Task cannot be empty");
-      return;
-    }
-    let newObj = {
-      number: props.list.length + 1,
-      title: titleRef.current.value,
-      date: new Date(calendarRef.current.value),
-    };
-    props.append(newObj);
+  }
+  function cancelTask() {
     setNewTask(false);
-  };
+    setNewTodo(object);
+  }
+  function handleChange(event) {
+    let id = event.target.id;
+    let value = event.target.value;
 
-  const cancelHandler = (e) => {
+    setNewTodo((obj) => ({ ...obj, [id]: value }));
+    return;
+  }
+  function handleClick(event) {
+    event.preventDefault();
+    const { title, date } = newTodo;
+    let currentDate = new Date(date);
+    append({ title, date: currentDate });
     setNewTask(false);
-  };
+    setNewTodo(object);
+  }
 
   return (
     <div>
       <h3>Inbox</h3>
       {!newTask && (
-        <button className="new" onClick={newTaskHandler} id='add-new'>
+        <button className="new" onClick={addNewTask} id="add-new">
           +Add New
         </button>
       )}
       {newTask && (
         <form className="newtask-box">
-          <input type="text" id="title" ref={titleRef}></input>
+          <input
+            type="text"
+            id="title"
+            value={newTodo.title}
+            onChange={handleChange}
+          ></input>
           <div className="buttons">
-            <button className="new" id="add-list" onClick={addHandler}>
+            <button className="new" id="add-list" onClick={handleClick}>
               Add Task
             </button>
-            <button className="new" onClick={cancelHandler}>
+            <button className="new" onClick={cancelTask}>
               Cancel
             </button>
             <input
               type="date"
-              ref={calendarRef}
-              defaultValue="2022-09-27"
+              onChange={handleChange}
+              defaultValue={date}
               id="date"
             ></input>
           </div>
         </form>
       )}
       <div id="inbox">
-        {props.list.map((list) => {
+        {list.map((list, index) => {
           return (
-            <div className="box" key={list.number}>
+            <div className="box" key={index}>
               <div className="task">
-                {list.title} ({list.date.toLocaleDateString()})
+                <div id="code">
+                  {list.title} ({list.date.toLocaleDateString()})
+                </div>
               </div>
             </div>
           );
