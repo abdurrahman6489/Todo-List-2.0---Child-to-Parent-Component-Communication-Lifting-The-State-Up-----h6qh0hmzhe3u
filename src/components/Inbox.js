@@ -1,12 +1,12 @@
 import React, { useState, useRef } from "react";
 
 var curr = new Date();
+
 curr.setDate(curr.getDate());
+
 var date = curr.toISOString().substring(0, 10);
-
 const object = { title: "", date: date };
-
-const Inbox = (props) => {
+const Inbox = ({ list, append }) => {
   const [newTask, setNewTask] = useState(false);
   const [newTodo, setNewTodo] = useState(object);
   function addNewTask() {
